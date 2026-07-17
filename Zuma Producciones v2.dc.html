@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/image-slot.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#08080a;color:#f3f3f5;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--red);color:#fff}
+  :root{
+    --red:#e11226;
+    --red-deep:#9e0c1b;
+    --red-glow:rgba(225,18,38,.45);
+    --ink:#08080a;
+    --ink2:#101013;
+    --line:rgba(255,255,255,.09);
+    --silver:linear-gradient(168deg,#ffffff 0%,#e3e6ea 30%,#9aa0a8 50%,#73787f 58%,#f4f5f7 100%);
+  }
+  @keyframes riseIn{from{opacity:0;transform:translateY(42px)}to{opacity:1;transform:none}}
+  @keyframes lineReveal{from{transform:translateY(118%)}to{transform:translateY(0)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes glowPulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.85;transform:scale(1.1)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  @keyframes tiltFloat{0%,100%{transform:rotate(2.5deg) translateY(0)}50%{transform:rotate(2.5deg) translateY(-16px)}}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes cueBob{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(9px);opacity:1}}
+  @keyframes spinSlow{to{transform:rotate(360deg)}}
+  @keyframes spinRev{to{transform:rotate(-360deg)}}
+  @keyframes chipPop{0%{opacity:0;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
+</style>
+</helmet>
+
+<div data-grain style="pointer-events:none;position:fixed;inset:0;z-index:999;opacity:.05;mix-blend-mode:overlay;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>')"></div>
+
+<header data-header style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:16px clamp(18px,5vw,60px);transition:background .45s ease,backdrop-filter .45s ease,padding .45s ease,border-color .45s ease;border-bottom:1px solid transparent">
+  <a href="#top" style="display:flex;align-items:center;gap:14px">
+    <img src="assets/zuma-logo.png" alt="Zuma Producciones" style="width:46px;height:46px;filter:drop-shadow(0 4px 14px rgba(225,18,38,.5))">
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:.16em;font-size:17px">ZUMA<span style="color:var(--red)">.</span></span>
+  </a>
+  <nav style="display:flex;align-items:center;gap:clamp(14px,2.4vw,34px);flex-wrap:wrap">
+    <a href="#servicios" style="font-size:13px;font-weight:600;letter-spacing:.02em;color:#c9c9cf;transition:color .25s" style-hover="color:#fff">Servicios</a>
+    <a href="#portafolio" style="font-size:13px;font-weight:600;letter-spacing:.02em;color:#c9c9cf;transition:color .25s" style-hover="color:#fff">Portafolio</a>
+    <a href="#proceso" style="font-size:13px;font-weight:600;letter-spacing:.02em;color:#c9c9cf;transition:color .25s" style-hover="color:#fff">Proceso</a>
+    <a href="#contacto" style="font-size:13px;font-weight:600;letter-spacing:.02em;color:#c9c9cf;transition:color .25s" style-hover="color:#fff">Contacto</a>
+    <a href="#contacto" style="display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;font-weight:700;font-size:13px;padding:11px 20px;border-radius:100px;box-shadow:0 8px 24px -8px var(--red-glow);transition:transform .25s,box-shadow .25s" style-hover="transform:translateY(-2px);box-shadow:0 14px 30px -8px var(--red-glow)">Cotizar stand →</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" data-hero style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:128px clamp(18px,5vw,60px) 90px">
+  <div style="position:absolute;inset:0;z-index:0;background:radial-gradient(900px circle at 22% 38%,rgba(225,18,38,.16),transparent 60%)"></div>
+  <div data-spot style="position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .5s;mix-blend-mode:screen;pointer-events:none"></div>
+  <div style="position:absolute;inset:0;z-index:0;opacity:.4;background-image:radial-gradient(circle,rgba(255,255,255,.12) 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(circle at 30% 40%,#000,transparent 70%)"></div>
+
+  <div style="position:absolute;left:clamp(8px,2vw,26px);top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:5;font-size:11px;letter-spacing:.34em;color:#5e5e66;font-weight:600">ZUMA PRODUCCIONES · EST. 2007</div>
+
+  <div style="position:relative;z-index:5;max-width:1240px;margin:0 auto;width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(40px,6vw,72px);align-items:center">
+    <!-- LEFT: type -->
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid var(--line);border-radius:100px;background:rgba(255,255,255,.03);backdrop-filter:blur(6px);opacity:0;animation:fadeUp .8s .1s both">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red)"></span>
+        <span style="font-size:11.5px;font-weight:600;letter-spacing:.22em;color:#cfcfd6">DISEÑO · FABRICACIÓN · MONTAJE DE STANDS</span>
+      </div>
+
+      <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(46px,7.6vw,112px);line-height:.88;letter-spacing:-.03em;margin:24px 0 0">
+        <span style="display:block;overflow:hidden"><span style="display:block;animation:lineReveal 1s .15s cubic-bezier(.16,.84,.44,1) both">STANDS QUE</span></span>
+        <span style="display:block;overflow:hidden"><span style="display:block;background:var(--silver);-webkit-background-clip:text;background-clip:text;color:transparent;animation:lineReveal 1s .3s cubic-bezier(.16,.84,.44,1) both">DETIENEN</span></span>
+        <span style="display:block;overflow:hidden"><span style="display:block;color:transparent;-webkit-text-stroke:1.6px var(--red);animation:lineReveal 1s .45s cubic-bezier(.16,.84,.44,1) both">LA FERIA.</span></span>
+      </h1>
+
+      <p style="max-width:46ch;margin:30px 0 0;font-size:clamp(16px,1.45vw,19px);line-height:1.62;color:#b3b3bb;opacity:0;animation:fadeUp .9s .7s both">
+        Diseñamos, fabricamos y montamos stands a la medida que convierten miradas en clientes. De la idea al render 3D, del taller al piso de exhibición — todo con un mismo equipo.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;opacity:0;animation:fadeUp .9s .85s both">
+        <a href="#contacto" style="display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-weight:700;font-size:15px;padding:16px 28px;border-radius:100px;box-shadow:0 16px 40px -12px var(--red-glow);transition:transform .25s,box-shadow .25s" style-hover="transform:translateY(-3px);box-shadow:0 22px 50px -12px var(--red-glow)">Cotiza tu stand →</a>
+        <a href="#portafolio" style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:600;font-size:15px;padding:16px 28px;border-radius:100px;background:rgba(255,255,255,.02);backdrop-filter:blur(6px);transition:background .25s,border-color .25s" style-hover="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4)">Ver portafolio</a>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:26px;margin-top:48px;opacity:0;animation:fadeUp .9s 1s both">
+        <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px">+450</div><div style="font-size:12.5px;color:#83838c;margin-top:2px">stands entregados</div></div>
+        <div style="width:1px;background:var(--line)"></div>
+        <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px">+120</div><div style="font-size:12.5px;color:#83838c;margin-top:2px">ferias &amp; expos</div></div>
+        <div style="width:1px;background:var(--line)"></div>
+        <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;color:var(--red)">3D</div><div style="font-size:12.5px;color:#83838c;margin-top:2px">render antes de fabricar</div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: framed photo + rings -->
+    <div style="position:relative;display:flex;justify-content:center;align-items:center;min-height:520px">
+      <div data-parallax="0.04" style="position:absolute;width:min(560px,92vw);height:min(560px,92vw);border-radius:50%;border:1.5px dashed rgba(225,18,38,.45);animation:spinSlow 60s linear infinite"></div>
+      <div data-parallax="0.07" style="position:absolute;width:min(420px,72vw);height:min(420px,72vw);border-radius:50%;border:1px solid rgba(255,255,255,.1);animation:spinRev 45s linear infinite"></div>
+      <div style="position:absolute;width:min(560px,92vw);height:min(560px,92vw);border-radius:50%;background:radial-gradient(circle,var(--red-glow),transparent 62%);opacity:.4;filter:blur(20px);animation:glowPulse 7s ease-in-out infinite"></div>
+
+      <div data-parallax="0.1" data-figure style="position:relative;z-index:3;width:min(380px,76vw);aspect-ratio:3/4;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.14);box-shadow:0 50px 90px -24px rgba(0,0,0,.85);animation:tiltFloat 8s ease-in-out infinite">
+        <img src="assets/stand-glorieta.jpg" alt="Stand La Glorieta construido por Zuma" data-zoom style="width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,.84,.44,1)">
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,8,10,.7),transparent 50%)"></div>
+        <div style="position:absolute;left:18px;bottom:16px">
+          <div style="font-size:10.5px;font-weight:700;letter-spacing:.16em;color:var(--red)">PROYECTO</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px;margin-top:3px">La Glorieta · Expo ANTAD</div>
+        </div>
+      </div>
+
+      <div style="position:absolute;z-index:4;top:8%;left:2%;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:14px;background:rgba(16,16,19,.85);border:1px solid var(--line);backdrop-filter:blur(8px);box-shadow:0 16px 40px -16px rgba(0,0,0,.7);animation:chipPop .6s 1.2s both,floaty 5s ease-in-out infinite 1.2s">
+        <span style="width:9px;height:9px;border-radius:50%;background:#25d366;box-shadow:0 0 10px #25d366"></span>
+        <span style="font-size:13px;font-weight:600">Render 3D aprobado</span>
+      </div>
+      <div style="position:absolute;z-index:4;bottom:9%;right:1%;padding:12px 18px;border-radius:14px;background:var(--red);box-shadow:0 18px 44px -14px var(--red-glow);animation:chipPop .6s 1.4s both,floaty 6s ease-in-out infinite 1.4s">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;line-height:1">100%</div>
+        <div style="font-size:11px;font-weight:600;opacity:.92">a la medida</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:7px;animation:cueBob 2s ease-in-out infinite">
+    <span style="font-size:10px;letter-spacing:.3em;color:#7a7a83">SCROLL</span>
+    <span style="font-size:18px;color:var(--red)">↓</span>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div style="position:relative;z-index:6;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0b0b0e;overflow:hidden;padding:22px 0">
+  <div style="display:flex;width:max-content;animation:marquee 32s linear infinite">
+    <sc-for list="{{ feriasLoop }}" as="f" hint-placeholder-count="10">
+      <span style="display:inline-flex;align-items:center;gap:34px;padding:0 34px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,30px);letter-spacing:.04em;color:rgba(255,255,255,.34);white-space:nowrap">{{ f }}<span style="color:var(--red)">✦</span></span>
+    </sc-for>
+  </div>
+</div>
+
+<!-- ============ SERVICIOS ============ -->
+<section id="servicios" style="position:relative;padding:clamp(80px,11vw,150px) clamp(18px,5vw,60px);max-width:1280px;margin:0 auto">
+  <div data-reveal style="opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .9s cubic-bezier(.16,.84,.44,1);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:54px">
+    <div>
+      <span style="font-size:12px;font-weight:700;letter-spacing:.26em;color:var(--red)">QUÉ HACEMOS</span>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(34px,5.5vw,68px);line-height:1;letter-spacing:-.02em;margin:16px 0 0;max-width:16ch">Un solo equipo, de la idea al montaje.</h2>
+    </div>
+    <p style="max-width:38ch;font-size:16px;line-height:1.6;color:#9a9aa2">Sin intermediarios ni sorpresas: diseño, fabricación y logística in-house para que tu stand llegue impecable y a tiempo.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px">
+    <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+      <div data-reveal style="opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.16,.84,.44,1),transform .8s cubic-bezier(.16,.84,.44,1),border-color .35s,background .35s;position:relative;padding:34px 30px 38px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));overflow:hidden" style-hover="border-color:rgba(225,18,38,.55);background:linear-gradient(180deg,rgba(225,18,38,.09),rgba(255,255,255,.01))">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;color:var(--red);letter-spacing:.1em">{{ s.n }}</span>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:23px;margin:18px 0 12px;line-height:1.15">{{ s.t }}</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:#9a9aa2;margin:0">{{ s.d }}</p>
+        <div style="position:absolute;right:-40px;bottom:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,var(--red-glow),transparent 65%);opacity:.5;filter:blur(8px)"></div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- ============ PORTAFOLIO ============ -->
+<section id="portafolio" style="position:relative;padding:clamp(40px,6vw,80px) clamp(18px,5vw,60px) clamp(80px,11vw,150px);max-width:1280px;margin:0 auto">
+  <div data-reveal style="opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .9s cubic-bezier(.16,.84,.44,1);margin-bottom:48px;text-align:center">
+    <span style="font-size:12px;font-weight:700;letter-spacing:.26em;color:var(--red)">PORTAFOLIO</span>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(34px,5.5vw,68px);line-height:1;letter-spacing:-.02em;margin:16px auto 0;max-width:18ch">Stands que no pasan desapercibidos.</h2>
+    <p style="max-width:46ch;margin:18px auto 0;font-size:16px;line-height:1.6;color:#9a9aa2">Una muestra de lo que construimos. Arrastra tus propias fotos a los espacios para personalizar esta galería.</p>
+  </div>
+
+  <div data-reveal style="opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .9s cubic-bezier(.16,.84,.44,1);display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:200px;gap:16px">
+    <div style="grid-column:span 4;grid-row:span 2;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line)" data-figure2>
+      <img src="assets/stand-glorieta.jpg" alt="Stand La Glorieta" style="width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,.84,.44,1)" data-zoom2>
+      <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,8,10,.85),transparent 55%)"></div>
+      <div style="position:absolute;left:24px;bottom:22px">
+        <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--red);margin-bottom:8px">FOOD &amp; BEVERAGE</span>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:26px;margin:0">La Glorieta · Stand a medida</h3>
+      </div>
+    </div>
+    <image-slot id="zuma-gal-1" shape="rounded" radius="18" placeholder="Arrastra una foto" style="grid-column:span 2;grid-row:span 1;width:100%;height:100%"></image-slot>
+    <image-slot id="zuma-gal-2" shape="rounded" radius="18" placeholder="Arrastra una foto" style="grid-column:span 2;grid-row:span 1;width:100%;height:100%"></image-slot>
+    <image-slot id="zuma-gal-3" shape="rounded" radius="18" placeholder="Arrastra una foto" style="grid-column:span 2;grid-row:span 2;width:100%;height:100%"></image-slot>
+    <image-slot id="zuma-gal-4" shape="rounded" radius="18" placeholder="Arrastra una foto" style="grid-column:span 2;grid-row:span 1;width:100%;height:100%"></image-slot>
+    <image-slot id="zuma-gal-5" shape="rounded" radius="18" placeholder="Arrastra una foto" style="grid-column:span 2;grid-row:span 1;width:100%;height:100%"></image-slot>
+  </div>
+</section>
+
+<!-- ============ PROCESO ============ -->
+<section id="proceso" style="position:relative;padding:clamp(80px,11vw,150px) clamp(18px,5vw,60px);background:#0b0b0e;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-reveal style="opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .9s cubic-bezier(.16,.84,.44,1);margin-bottom:60px">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.26em;color:var(--red)">CÓMO TRABAJAMOS</span>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(34px,5.5vw,68px);line-height:1;letter-spacing:-.02em;margin:16px 0 0;max-width:16ch">Cinco pasos, cero estrés.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+        <div data-reveal style="opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.16,.84,.44,1),transform .8s cubic-bezier(.16,.84,.44,1);position:relative;padding:30px 22px 30px 0">
+          <div style="position:absolute;top:14px;left:0;right:0;height:1px;background:var(--line)"></div>
+          <div style="position:absolute;top:9px;left:0;width:11px;height:11px;border-radius:50%;background:var(--red);box-shadow:0 0 14px var(--red-glow)"></div>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;color:rgba(255,255,255,.13);display:block;margin-top:18px">{{ st.n }}</span>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;margin:10px 0 10px">{{ st.t }}</h3>
+          <p style="font-size:14px;line-height:1.6;color:#9a9aa2;margin:0;max-width:24ch">{{ st.d }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NÚMEROS ============ -->
+<section style="position:relative;padding:clamp(80px,11vw,140px) clamp(18px,5vw,60px);max-width:1280px;margin:0 auto;overflow:hidden">
+  <div style="position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,var(--red-glow),transparent 65%);opacity:.25;filter:blur(40px);pointer-events:none"></div>
+  <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;text-align:center">
+    <sc-for list="{{ stats }}" as="x" hint-placeholder-count="4">
+      <div data-reveal style="opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .9s cubic-bezier(.16,.84,.44,1)">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(48px,7vw,86px);line-height:1;background:var(--silver);-webkit-background-clip:text;background-clip:text;color:transparent">
+          <span data-count="{{ x.v }}">0</span>{{ x.suf }}
+        </div>
+        <div style="margin-top:14px;font-size:14px;letter-spacing:.04em;color:#9a9aa2">{{ x.l }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" style="position:relative;padding:clamp(80px,11vw,150px) clamp(18px,5vw,60px);background:#0b0b0e;border-top:1px solid var(--line)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,6vw,90px);align-items:center">
+    <div data-reveal style="opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .9s cubic-bezier(.16,.84,.44,1)">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.26em;color:var(--red)">HABLEMOS</span>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(36px,5.5vw,66px);line-height:1;letter-spacing:-.02em;margin:16px 0 22px;max-width:14ch">¿Tienes una feria a la vista?</h2>
+      <p style="font-size:17px;line-height:1.65;color:#9a9aa2;max-width:42ch;margin:0 0 32px">Cuéntanos las medidas de tu espacio y la fecha del evento. Te enviamos una propuesta con render 3D sin compromiso.</p>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <a href="{{ whatsapp }}" target="_blank" style="display:inline-flex;align-items:center;gap:12px;font-size:16px;font-weight:600" style-hover="color:var(--red)">
+          <span style="display:inline-flex;width:42px;height:42px;align-items:center;justify-content:center;border-radius:12px;background:rgba(37,211,102,.15);color:#25d366;font-size:20px">✆</span>
+          WhatsApp directo
+        </a>
+        <a href="mailto:hola@zumaproducciones.mx" style="display:inline-flex;align-items:center;gap:12px;font-size:16px;font-weight:600" style-hover="color:var(--red)">
+          <span style="display:inline-flex;width:42px;height:42px;align-items:center;justify-content:center;border-radius:12px;background:rgba(225,18,38,.15);color:var(--red);font-size:18px">✉</span>
+          hola@zumaproducciones.mx
+        </a>
+      </div>
+    </div>
+
+    <form data-form onSubmit="{{ onSubmit }}" style="position:relative;padding:clamp(26px,3vw,40px);border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));display:flex;flex-direction:column;gap:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <input name="nombre" placeholder="Nombre" required style="width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.3);color:#fff;font-family:inherit;font-size:15px;outline:none" style-focus="border-color:var(--red)">
+        <input name="empresa" placeholder="Empresa" style="width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.3);color:#fff;font-family:inherit;font-size:15px;outline:none" style-focus="border-color:var(--red)">
+      </div>
+      <input name="contacto" placeholder="Correo o teléfono" required style="width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.3);color:#fff;font-family:inherit;font-size:15px;outline:none" style-focus="border-color:var(--red)">
+      <textarea name="mensaje" placeholder="Cuéntanos sobre tu stand: feria, fecha, medidas (ej. 3x3 m)…" rows="4" style="width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.3);color:#fff;font-family:inherit;font-size:15px;outline:none;resize:vertical" style-focus="border-color:var(--red)"></textarea>
+      <button type="submit" style="margin-top:4px;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--red);color:#fff;font-weight:700;font-size:16px;padding:16px;border:none;border-radius:100px;cursor:pointer;box-shadow:0 16px 40px -14px var(--red-glow);transition:transform .25s,box-shadow .25s;font-family:inherit" style-hover="transform:translateY(-2px);box-shadow:0 22px 50px -14px var(--red-glow)">Solicitar cotización →</button>
+      <div data-success style="display:none;text-align:center;padding:8px 0 2px;color:#25d366;font-weight:600;font-size:15px">¡Gracias! Te contactamos en breve. 🎉</div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="padding:54px clamp(18px,5vw,60px);max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px">
+  <div style="display:flex;align-items:center;gap:14px">
+    <img src="assets/zuma-logo.png" alt="" style="width:40px;height:40px">
+    <div>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:.14em;font-size:15px">ZUMA PRODUCCIONES</div>
+      <div style="font-size:12px;color:#7a7a83;margin-top:2px">Diseño y construcción de stands · Expos &amp; Ferias</div>
+    </div>
+  </div>
+  <div style="font-size:12px;color:#6c6c74">© <span data-year>2025</span> Zuma Producciones. Hecho con pasión por las ferias.</div>
+</footer>
+
+<!-- ============ WHATSAPP FAB ============ -->
+<a href="{{ whatsapp }}" target="_blank" aria-label="WhatsApp" style="position:fixed;right:22px;bottom:22px;z-index:200;display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 12px 30px -6px rgba(37,211,102,.6);animation:floaty 4s ease-in-out infinite;transition:transform .25s" style-hover="transform:scale(1.08)">
+  <svg viewBox="0 0 32 32" width="32" height="32" fill="currentColor"><path d="M16.04 4C9.4 4 4 9.4 4 16.04c0 2.12.55 4.18 1.6 6L4 28l6.13-1.6a12 12 0 0 0 5.9 1.5h.01c6.64 0 12.04-5.4 12.04-12.04S22.68 4 16.04 4zm0 21.9h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.64.95.97-3.55-.24-.37a9.86 9.86 0 0 1-1.51-5.27c0-5.46 4.45-9.9 9.9-9.9 2.65 0 5.13 1.03 7 2.9a9.82 9.82 0 0 1 2.9 7c0 5.46-4.45 9.9-9.9 9.9zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+</a>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#e11226&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;spotlight&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5215555555555&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const ferias = ['EXPO ANTAD','ALIMENTARIA','THE GREEN EXPO','EXPO CAFÉ','ABASTUR','EXPO PACK','TECNO CARNE','EXPO MANUFACTURA'];
+    const whatsapp = (this.props.whatsapp && String(this.props.whatsapp).startsWith('http'))
+      ? this.props.whatsapp
+      : 'https://wa.me/' + ((this.props.whatsapp || '5215555555555').replace(/[^0-9]/g,'')) + '?text=' + encodeURIComponent('Hola Zuma, quiero cotizar un stand');
+    return {
+      feriasLoop: ferias.concat(ferias),
+      whatsapp,
+      services: [
+        {n:'01', t:'Diseño & Render 3D', d:'Concepto, planos y renders fotorrealistas para que apruebes tu stand antes de fabricarlo.'},
+        {n:'02', t:'Fabricación a medida', d:'Taller propio: carpintería, metal, acrílico y melamina con acabados de exhibición.'},
+        {n:'03', t:'Montaje & Logística', d:'Transporte, montaje y desmontaje en cualquier recinto del país, siempre a tiempo.'},
+        {n:'04', t:'Iluminación & AV', d:'Luz arquitectónica, pantallas y multimedia que le dan vida a tu espacio.'},
+        {n:'05', t:'Gráfica & Branding', d:'Gran formato, letras 3D, lonas y vinil con color calibrado a tu marca.'},
+        {n:'06', t:'Mobiliario & Renta', d:'Counters, salas, vitrinas y mobiliario premium en renta o a la medida.'},
+      ],
+      steps: [
+        {n:'01', t:'Briefing', d:'Escuchamos tu objetivo, medidas del espacio y presupuesto.'},
+        {n:'02', t:'Diseño 3D', d:'Propuesta visual y render fotorrealista para tu aprobación.'},
+        {n:'03', t:'Fabricación', d:'Producción en taller con control de calidad.'},
+        {n:'04', t:'Montaje', d:'Instalamos y dejamos todo listo antes de la inauguración.'},
+        {n:'05', t:'Soporte en piso', d:'Acompañamiento durante el evento y desmontaje.'},
+      ],
+      stats: [
+        {v:450, suf:'+', l:'Stands entregados'},
+        {v:17, suf:' años', l:'De experiencia'},
+        {v:120, suf:'+', l:'Ferias y expos'},
+        {v:100, suf:'%', l:'Diseño a la medida'},
+      ],
+      onSubmit: (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const ok = form.querySelector('[data-success]');
+        const grid = form.querySelector('div[style*="grid-template-columns"]');
+        if (grid) grid.style.display = 'none';
+        form.querySelectorAll('input,textarea,button').forEach(el => { el.style.display = 'none'; });
+        if (ok) ok.style.display = 'block';
+      },
+    };
+  }
+
+  componentDidMount() {
+    const root = this.el || document;
+    const accent = this.props.accentColor;
+    if (accent) {
+      const hex = accent.replace('#','');
+      const r = parseInt(hex.substring(0,2),16), g = parseInt(hex.substring(2,4),16), b = parseInt(hex.substring(4,6),16);
+      const dk = (c)=>Math.max(0,Math.round(c*0.66));
+      document.documentElement.style.setProperty('--red', accent);
+      document.documentElement.style.setProperty('--red-deep', `rgb(${dk(r)},${dk(g)},${dk(b)})`);
+      document.documentElement.style.setProperty('--red-glow', `rgba(${r},${g},${b},.45)`);
+    }
+    if (this.props.grain === false) {
+      const gr = root.querySelector('[data-grain]'); if (gr) gr.style.display = 'none';
+    }
+    this._spotOn = this.props.spotlight !== false;
+
+    const yr = root.querySelector('[data-year]'); if (yr) yr.textContent = new Date().getFullYear();
+
+    const reveals = Array.from(root.querySelectorAll('[data-reveal]'));
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((en)=>{
+        if (en.isIntersecting){ en.target.style.opacity='1'; en.target.style.transform='none'; io.unobserve(en.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    reveals.forEach((el)=>{
+      const sibs = Array.from(el.parentElement ? el.parentElement.children : []).filter(c=>c.hasAttribute && c.hasAttribute('data-reveal'));
+      const idx = sibs.indexOf(el);
+      if (idx > 0) el.style.transitionDelay = (idx * 0.08) + 's';
+      io.observe(el);
+    });
+    this._fallback = setTimeout(()=>reveals.forEach(el=>{el.style.opacity='1';el.style.transform='none';}), 4000);
+
+    const counters = Array.from(root.querySelectorAll('[data-count]'));
+    const cio = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if (en.isIntersecting){
+          const el = en.target;
+          const target = parseInt(el.getAttribute('data-count'),10) || 0;
+          const dur = 1500; const t0 = performance.now();
+          const tick = (now)=>{
+            const p = Math.min(1,(now-t0)/dur);
+            el.textContent = Math.round(target*(1-Math.pow(1-p,3))).toString();
+            if (p<1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          cio.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    counters.forEach(el=>cio.observe(el));
+
+    const header = root.querySelector('[data-header]');
+    const onScroll = ()=>{
+      if (!header) return;
+      if (window.scrollY > 40){
+        header.style.background='rgba(8,8,10,.78)'; header.style.backdropFilter='blur(14px)';
+        header.style.borderBottomColor='rgba(255,255,255,.08)'; header.style.padding='10px clamp(18px,5vw,60px)';
+      } else {
+        header.style.background='transparent'; header.style.backdropFilter='none';
+        header.style.borderBottomColor='transparent'; header.style.padding='16px clamp(18px,5vw,60px)';
+      }
+    };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    this._onScroll = onScroll; onScroll();
+
+    const hero = root.querySelector('[data-hero]');
+    const layers = Array.from(root.querySelectorAll('[data-parallax]'));
+    const spot = root.querySelector('[data-spot]');
+    if (hero){
+      const onMove = (e)=>{
+        const r = hero.getBoundingClientRect();
+        const cx = (e.clientX - r.left)/r.width - 0.5;
+        const cy = (e.clientY - r.top)/r.height - 0.5;
+        layers.forEach(l=>{
+          const f = parseFloat(l.getAttribute('data-parallax'))||0.05;
+          l.style.transform = `translate(${-cx*f*100}px,${-cy*f*100}px)`;
+        });
+        if (spot && this._spotOn){
+          spot.style.opacity = '.85';
+          spot.style.background = `radial-gradient(360px circle at ${(cx+0.5)*100}% ${(cy+0.5)*100}%, var(--red-glow), transparent 60%)`;
+        }
+      };
+      const onLeave = ()=>{ if (spot) spot.style.opacity='0'; };
+      hero.addEventListener('mousemove', onMove);
+      hero.addEventListener('mouseleave', onLeave);
+      this._heroMove = onMove; this._heroLeave = onLeave; this._hero = hero;
+    }
+
+    const fig2 = root.querySelector('[data-figure2]'); const zoom2 = root.querySelector('[data-zoom2]');
+    if (fig2 && zoom2){
+      fig2.addEventListener('mouseenter', ()=>{ zoom2.style.transform='scale(1.06)'; });
+      fig2.addEventListener('mouseleave', ()=>{ zoom2.style.transform='scale(1)'; });
+    }
+  }
+
+  componentWillUnmount(){
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._hero){ this._hero.removeEventListener('mousemove', this._heroMove); this._hero.removeEventListener('mouseleave', this._heroLeave); }
+    if (this._fallback) clearTimeout(this._fallback);
+  }
+}
+</script>
+</body>
+</html>
