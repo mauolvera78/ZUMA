@@ -788,6 +788,7 @@ class Component extends DCLogic {
     // hero video autoplay safety
     const heroVid = root.querySelector('[data-heroimg]');
     if (heroVid && heroVid.tagName === 'VIDEO') {
+      heroVid.muted = true; heroVid.defaultMuted = true;
       const tryPlay = () => heroVid.play().catch(() => {});
       tryPlay();
       document.addEventListener('click', tryPlay, { once: true });
